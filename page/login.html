@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/setAndGetCookie.js"></script>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+    <div>
+        <h1>账户登录</h1>
+        <p>
+            账号：<input type="text" name="username" placeholder="请输入账号">
+        </p>
+        <p>
+            密码：<input type="password" name="userpwd" placeholder="请输入密码">
+        </p>
+        <button>登录</button>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $('button').click(function () {
+            let username = $('[name="username"]').val();
+            let userpwd = $('[name="userpwd"]').val();
+
+            $.ajax({
+                url: '../server/login.php',
+                type: 'post',
+                data: { userName: username, userPwd: userpwd },
+                dataType: 'json',
+                success: function (res) {
+                    if (res === 1) {
+                        // 获取地址栏信息
+                        let str = decodeURIComponent(window.location.search);
+                        // 去除?
+                        str = str.substr(1);
+
+                        // 跳转回之前的页面
+                        window.location.href = str;
+
+                        // 设置cookie,该cookie位于www目录下
+                        setCookie('login', 1, 7 * 24 * 3600);
+
+                    } else {
+                        window.alert('用户名或密码错误,请重新登录');
+                        $('[name="username"]').val('');
+                        $('[name="userpwd"]').val('');
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

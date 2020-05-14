@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: #777;
+}
+
+.container {
+    width: 1000px;
+    margin: 50px auto;
+}
+
+.container1 {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#header {
+    background: #f5f5f5;
+}
+
+#header .header-nav {
+    height: 40px;
+    line-height: 40px;
+}
+
+#header .header-nav a {
+    color: #666;
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+#header .header-nav a:hover {
+    color: #fa2a83;
+}
+
+#header .header-nav span {
+    float: right;
+    text-align: center;
+    width: 80px;
+    padding: 0 10px 0 7px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+}
+
+#header .header-nav span:hover {
+    background: #fff;
+    color: #fa2a83;
+}
+
+.dispatch {
+    font-size: 26px;
+    padding: 0;
+}
+
+.dispatch p {
+    background-color: #F32391;
+    width: 1000px;
+    height: 2px;
+}
+
+.dispatch span {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+table {
+    border-color: #eee;
+}
+
+table td {
+    padding: 10px 20px;
+    text-align: center;
+    border: 0;
+}
+
+table th {
+    padding: 10px 20px;
+    border: 0;
+    background: #eee;
+    color: #000;
+    font-size: 12px;
+    font-weight: normal;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.content {
+    font-size: 14px;
+    width: 250px;
+}
+
+.content p:nth-of-type(1) {
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.content-img {
+    width: 64px;
+    height: 76px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.number div {
+    display: flex;
+    justify-content: center;
+}
+
+.number div button {
+    width: 22px;
+    height: 30px;
+}
+
+.number div strong {
+    width: 30px;
+    height: 30px;
+    display: block;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.clear {
+    height: 160px;
+    border: 1px solid #ccc;
+    margin-top: -50px;
+    border-top: 0;
+    position: relative;
+}
+
+.clear>button {
+    line-height: 100px;
+}
+
+.clear .sum {
+    float: right;
+    margin-top: 50px;
+    margin-right: 10px;
+    font-size: 14px;
+    color: gray;
+}
+
+.clear .sum b {
+    color: #F32391;
+    margin-left: 10px;
+}
+
+.clear .sum span {
+    color: #F32391;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.close1 {
+    clear: both;
+    height: 60px;
+    width: 998px;
+    background: #f0f0f0;
+    position: absolute;
+    bottom: 0;
+    left: 0px;
+}
+
+.close1 button {
+    background: #F10180;
+    border: 0;
+    width: 250px;
+    height: 100%;
+    float: right;
+    color: #fff;
+    font-size: 18px;
+}
+
+tbody .nullCart{
+    height: 240px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+tbody .nullCart .nullImg{
+    width: 125px;
+}
+
+tbody .nullCart .nullContent{
+    margin-left: 20px;
+}
+
+tbody .nullCart .nullContent p:nth-of-type(1){
+    margin-left: 10px;
+}
+
+tbody .nullCart .nullContent p:nth-of-type(2){
+    font-size: 12px;
+}

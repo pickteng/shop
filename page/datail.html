@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/datail.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/setAndGetCookie.js"></script>
+    <script src="../js/utils.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="header-nav container">
+            <a href="JavaScript:;" name="index">首页</a>
+            <a href="JavaScript:;" style="margin-left: 248px;" name="login">登录</a>
+            <a href="JavaScript:;" name="reg">注册</a>
+            <a href="JavaScript:;" style="border: 0;" name="out">退出登录</a>
+            <span class="iconfont icon-xiazai1" name="cart">购物车</span>
+        </div>
+    </div>
+    <div class="box"></div>
+    <div class="inst container"></div>
+    <script>
+        // 调用首栏跳转函数
+        all();
+
+        // 定义一个空数组存储res
+        let result = [];
+        // 定义数量
+        let buyNum = 1;
+        // 获取地址栏信息
+        let str = decodeURIComponent(window.location.search.substr(1));
+        // 转化成数组
+        const arr = str.split('=');
+
+        // 发送ajax请求，生成页面
+        $.ajax({
+            url: '../server/detail.php',
+            type: 'post',
+            data: { goods_id: arr[0] },
+            dataType: 'json',
+            success: function (res) {
+                console.log(res);
+                result = res;
+                // console.log(result)
+
+                let str = `
+                <div class="box-img">
+                    <div class="img-content1">
+                        <img src="${res.goods_big_logo}" alt="">
+                    </div>
+                    <div class="img-content2">
+                        <img src="${res.goods_small_logo}" alt="">
+                        <img src="${res.goods_small_logo}" alt="">
+                        <img src="${res.goods_small_logo}" alt="">
+                        <img src="${res.goods_small_logo}" alt="">
+                        <img src="${res.goods_small_logo}" alt="">
+                        <img src="${res.goods_small_logo}" alt="">
+                    </div>
+                </div>
+                <div class="box-content">
+                    <h1>${res.goods_name}</h1>
+                    <p class="price">￥${res.goods_price}</p>
+                    <p>
+                        <span>配送</span>
+                        <select name="addr">
+                            <option>请选择省市区</option>
+                            <option>山东</option>
+                            <option>湖南</option>
+                            <option>浙江</option>
+                            <option>湖北</option>
+                        </select>
+                    </p>
+                    <p><span>运费</span>新会员专享首单满38元免邮(限唯品自营商品，部分商品不可用)</p>
+                    <p>
+                        <span>尺码</span>
+                        <button name="size1" type="button" value="S" class="btn btn-outline-secondary active">S</button>
+                        <button name="size1" type="button" value="M" class="btn btn-outline-secondary">M</button>
+                        <button name="size1" type="button" value="L" class="btn btn-outline-secondary">L</button>
+                    </p>
+                    <p>
+                        <span>数量</span>
+                        <button name="lose">-</button>
+                        <strong name="num">${buyNum}</strong>
+                        <button name="add">+</button>
+                        <span style="color:red; margin-left:10px;" name="stock"></span>
+                    </p>
+                    <p>
+                        <button name="goCart" type="button" class="btn btn-danger btn-lg">加入购物车</button>
+                    </p>
+                </div>
+                `;
+                $('.box').html(str);
+                let str2 = `${res.goods_introduce}`;
+                $('.inst').html(str2);
+
+                // 设置尺寸
+                $('[name="size1"]').each(function (key, item) {
+                    $(item).click(function () {
+                        $('[name="size1"]').each(function (k, v) {
+                            $(v).removeClass('active');
+                        })
+                        $(item).addClass('active');
+                    })
+                })
+
+                // 减少数量
+                $('[name="lose"]').click(function () {
+                    buyNum--;
+                    if (buyNum < 1) {
+                        buyNum = 1;
+                        // $(this).prop('disabled',true);
+                    }
+                    if (buyNum < res.goods_number) {
+                        $('[name="stock"]').html('');
+                    }
+                    $('[name="num"]').html(buyNum);
+                })
+
+                // 增加数量
+                $('[name="add"]').click(function () {
+                    buyNum++;
+                    if (buyNum > res.goods_number) {
+                        buyNum = res.goods_number;
+                        // $(this).prop('disabled',true);
+                        $('[name="stock"]').html('库存不足');
+                    }
+                    $('[name="num"]').html(buyNum);
+                })
+            }
+
+        })
+
+
+        // 给box标签添加事件委托，点击购物车，跳转购物车页面
+        $('.box').on('click', '[name="goCart"]', function () {
+            // 判断是否登录
+            const cookieObj = getCookie(document.cookie);
+            if (cookieObj['login'] !== undefined) {
+                window.location.href = './cart.html';
+
+                // 判断localStorage中是否有数据(一开始没有)
+                if (localStorage.getItem('cart') === null) {
+                    // 没有数据的话就添加
+                    // 但是要以数组的形式，因为购物车中不止一条数据
+                    result.num = buyNum;
+                    result.buy = true;  // 默认为购买状态
+                    // 这时候已经跳转到购物车页面了，也就是详情页加载完毕了，所有这里可以获取到button按钮
+                    const oBtns = document.querySelectorAll('[name="size1"]');
+                    oBtns.forEach(function (item) {
+                        if ($(item).hasClass('active')) {
+                            result.size = $(item).val(); // 设置尺寸
+                        }
+                    })
+                    // 设置地址
+                    result.addr = $('[name="addr"]').val();
+
+                    var cartArr = [];
+
+                    cartArr.push(result);
+                } else {
+                    // localStorage里面有数据
+                    // 定义一个开关变量，默认里面没有相同的商品
+                    let bool = true;
+                    // 获取localStorage里的信息
+                    var cartArr = JSON.parse(localStorage.getItem('cart'));
+                    // 循环遍历该数组
+                    cartArr.forEach(function (item) {
+                        // 判断是否有相同的商品
+                        if (item.goods_id === result.goods_id) {
+                            item.num++;
+                            bool = false;
+                        }
+                    })
+
+                    // 循环结束，如果bool仍然为true，证明没有相同的商品
+                    if (bool === true) {
+                        result.num = buyNum;
+                        result.buy = true;
+                        // 这时候已经跳转到购物车页面了，也就是详情页加载完毕了，所有这里可以获取到button按钮
+                        const oBtns = document.querySelectorAll('[name="size1"]');
+                        oBtns.forEach(function (item) {
+                            if ($(item).hasClass('active')) {
+                                result.size = $(item).val();
+                            }
+                        })
+                        // 设置地址
+                        result.addr = $('[name="addr"]').val();
+
+                        cartArr.push(result);
+                    }
+                    // 当所有的判断都结束了,会有一个新的 arr
+                    // 存储的是 点击 按钮之后,新的数据内容
+                    // 将新的数据内容,写入到 localStorage 中 
+                }
+                // 
+                localStorage.setItem('cart', JSON.stringify(cartArr));
+
+            } else {
+                const bool = window.confirm('您还没登陆,请先登录');
+                if (bool === true) {
+                    window.location.href = `./login.html?${window.location.href}`;
+                } else {
+                    return false;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

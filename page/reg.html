@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reg.css">
+    <script src="../js/setAndGetCookie.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>账户注册</h1>
+        <p>
+            <input type="text" name="username" placeholder="请输入账号"><span name="un"></span>
+        </p>
+        <p>
+            <input type="password" name="userpwd1" placeholder="请输入密码"><span name="pwd1"></span>
+            <p>
+                <input type="password" name="userpwd2" placeholder="请再次输入密码"><span name="pwd2"></span>
+            </p>
+            <p>
+                <input type="text" name="vc" placeholder="请输入验证码"><span name="vc2"></span><span name="vc3"></span>
+            </p>
+            <button>注册</button>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        let username = $('[name="username"]');
+        let userpwd1 = $('[name="userpwd1"]');
+        let userpwd2 = $('[name="userpwd2"]');
+        let pwd1 = $('[name="pwd1"]');
+        let pwd2 = $('[name="pwd2"]');
+        let un = $('[name="un"]');
+        let vc = $('[name="vc"]');
+        let vc2 = $('[name="vc2"]');
+        let vc3 = $('[name="vc3"]');
+
+        // 确认密码
+        userpwd2.change(function () {
+            if (userpwd1.val() === userpwd2.val()) {
+                pwd2.html('√').css('color', 'green');
+            } else {
+                pwd2.html('×').css('color', 'red');
+            }
+        })
+
+
+        // 验证码
+        vc2.html(setVc()).click(function () {
+            $(this).html(setVc());
+        });
+        vc.change(function () {
+            if (vc.val() === vc2.html() || vc.val() === vc2.html().toLowerCase() || vc.val() === vc2.html().toUpperCase()) {
+                vc3.html('√').css('color', 'green');
+            } else {
+                vc3.html('x').css('color', 'red');
+            }
+        })
+
+        $('button').click(function () {
+            // 账号不能为空
+            if (username.val() === '') {
+                un.html('x').css('color', 'red');
+                return false;
+            } else {
+                un.html('');
+            }
+            // 密码不能为空
+            if (userpwd1.val() === '') {
+                pwd1.html('x').css('color', 'red');
+                return false;
+            } else {
+                pwd1.html('');
+            }
+            // 确认密码不能为空
+            if (userpwd2.val() === '') {
+                pwd2.html('x').css('color', 'red');
+                return false;
+            }
+            // 验证码不能为空
+            if (vc.val() === '') {
+                vc3.html('x').css('color', 'red');
+                return false;
+            }
+            // 确认密码必须与密码一致
+            if (userpwd1.val() !== userpwd2.val()) {
+                // pwd2.html('×').css('color','red');
+                alert('确认密码和密码不一致');
+                return false;
+            }
+            // 验证码输入必须正确
+            if (!(vc.val() === vc2.html() || vc.val() === vc2.html().toLowerCase() || vc.val() === vc2.html().toUpperCase())) {
+                // pwd2.html('×').css('color','red');
+                alert('验证码输入错误,请重新输入');
+                return false;
+            }
+
+            $.ajax({
+                url: '../server/res.php',
+                type: 'post',
+                data: { userName: username.val(), userPwd: userpwd1.val() },
+                dataType: 'json',
+                success: function (res) {
+                    if (res === '1') {
+                        window.alert('注册成功');
+                        // 获取地址栏信息
+                        let str = decodeURIComponent(window.location.search);
+                        // 去除?
+                        str = str.substr(1);
+
+                        window.location.href = str;
+                    } else {
+                        window.alert('该用户名已存在,请重新注册');
+                        username.val('');
+                        userpwd1.val('');
+                        userpwd2.val('');
+                        pwd2.html('');
+                        vc.val('');
+                        vc2.html(setVc());
+                        vc3.html('');
+                    }
+                }
+            })
+        })
+
+        function setVc() {
+            let str = '0123456789qazxswedcvfrtgbnhyujmkilopQWERTYUIOPLKJHGFDSAZXCVBNM';
+            let newStr = '';
+            while (newStr.length < 4) {
+                let num = parseInt(Math.random() * str.length);
+                if (newStr.indexOf(str[num]) === -1) {
+                    newStr += str[num];
+                }
+            }
+            return newStr;
+        }
+    </script>
+</body>
+
+</html>

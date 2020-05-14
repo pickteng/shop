@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+#header {
+    background: #f5f5f5;
+}
+
+#header .header-nav {
+    height: 40px;
+    line-height: 40px;
+}
+
+#header .header-nav a {
+    color: #666;
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+#header .header-nav a:hover {
+    color: #fa2a83;
+}
+
+#header .header-nav span {
+    float: right;
+    text-align: center;
+    width: 80px;
+    padding: 0 10px 0 7px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+}
+
+#header .header-nav span:hover {
+    background: #fff;
+    color: #fa2a83;
+}
+
+.box {
+    width: 1000px;
+    margin: 50px auto;
+    display: flex;
+}
+
+.box-img .img-content1 {
+    width: 420px;
+    height: 420px;
+    border: 1px solid #ccc;
+}
+
+.box-img .img-content2 {
+    width: 420px;
+    height: 62px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.box-img .img-content2 img {
+    width: 62px;
+    height: 62px;
+    border: 1px solid #ccc;
+}
+
+.box-content {
+    margin-left: 30px;
+}
+
+.box-content span {
+    color: #555;
+    font-size: 14px;
+}
+
+.box-content h1 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.box-content p:nth-of-type(1) {
+    font-weight: bold;
+    font-size: 50px;
+    color: red;
+}
+
+.box-content p:nth-of-type(2) select {
+    height: 30px;
+    width: 250px;
+    font-size: 12px;
+    text-indent: 10px;
+    margin-left: 10px;
+}
+
+.box-content p:nth-of-type(3) {
+    font-size: 14px;
+}
+
+.box-content p:nth-of-type(3) span {
+    margin-right: 15px;
+}
+
+.box-content p:nth-of-type(4) span {
+    margin-right: 10px;
+}
+
+.box-content p:nth-of-type(4) button {
+    width: 70px;
+    height: 30px;
+    border-radius: 0;
+    line-height: 15px;
+    text-align: center;
+}
+
+.box-content p:nth-of-type(5) {
+    display: flex;
+}
+
+.box-content p:nth-of-type(5) span {
+    margin-right: 13px;
+    line-height: 30px;
+}
+
+.box-content p:nth-of-type(5) button {
+    width: 22px;
+    height: 30px;
+}
+
+.box-content p:nth-of-type(5) strong {
+    width: 30px;
+    height: 30px;
+    display: block;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.box-content p:nth-of-type(6) {
+    margin-top: 30px;
+    margin-left: 50px;
+}

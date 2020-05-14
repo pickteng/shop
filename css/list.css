@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+.l {
+    float: left;
+}
+
+#header {
+    background: #f5f5f5;
+}
+
+#header .header-nav {
+    height: 40px;
+    line-height: 40px;
+}
+
+#header .header-nav a {
+    color: #666;
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+#header .header-nav a:hover {
+    color: #fa2a83;
+}
+
+#header .header-nav span {
+    float: right;
+    text-align: center;
+    width: 80px;
+    padding: 0 10px 0 7px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+}
+
+#header .header-nav span:hover {
+    background: #fff;
+    color: #fa2a83;
+}
+
+#main {
+    width: 1192px;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+button a {
+    color: #fff;
+}
+
+.price1 {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 40px;
+}
+
+.nav1 {
+    height: 60px;
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    padding: 0 25px;
+}
+
+.nav-img {
+    padding: 20px;
+}
+
+.nav1 ol {
+    display: flex;
+    justify-content: center;
+}
+
+.M-box {
+    display: flex;
+    width: 550px;
+    height: 50px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.M-box a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.M-box span {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
